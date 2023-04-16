@@ -9,8 +9,8 @@ import (
 )
 
 type stripePayload struct {
-	Curreny string `json:"curreny"`
-	Amount  string `json:"amount"`
+	Currency string `json:"currency"`
+	Amount   string `json:"amount"`
 }
 
 // omitempty artinya fields tidak akan dikirim ke payload jika valuenya 0, false, or ""
@@ -25,6 +25,8 @@ func (app *application) GetPaymentIntent(w http.ResponseWriter, r *http.Request)
 	// payload is data received from request or response
 	var payload stripePayload
 
+	//Encoder digunakan untuk mengambil data dari sebuah struktur Golang dan mengubahnya menjadi format JSON.
+	//decoder digunakan untuk mengambil data dari format JSON dan mengembalikannya ke struktur Golang.
 	err := json.NewDecoder(r.Body).Decode(&payload)
 	if err != nil {
 		app.errorLog.Println(err)
@@ -42,13 +44,13 @@ func (app *application) GetPaymentIntent(w http.ResponseWriter, r *http.Request)
 	card := cards.Card{
 		Secret:   app.config.stripe.secret,
 		Key:      app.config.stripe.key,
-		Currency: payload.Curreny,
+		Currency: payload.Currency,
 	}
 
 	okey := true
 
 	// pi : payment intent
-	pi, msg, err := card.Charge(payload.Curreny, amount)
+	pi, msg, err := card.Charge(payload.Currency, amount)
 	if err != nil {
 		okey = false
 	}

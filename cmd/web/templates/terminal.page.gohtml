@@ -28,7 +28,7 @@
 
     <div class="mb-3">
         <label for="cardholder-email" class="form-label">Cardholder Email</label>
-        <input type="email" class="form-control" id="cardholder-email" name="cardholder_email"
+        <input type="email" class="form-control" id="cardholder-email" name="email"
             required="" autocomplete="cardholder-email-new">
     </div>
 
@@ -126,7 +126,7 @@
                 let data;
                 try {
                     data = JSON.parse(response);
-                    console.log(data.client_secret);
+                    console.log(data);
                     stripe.confirmCardPayment(data.client_secret, {
                         payment_method: {
                             card: card,

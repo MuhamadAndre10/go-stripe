@@ -1,6 +1,8 @@
 package cards
 
 import (
+	"log"
+
 	"github.com/stripe/stripe-go/v74"
 	"github.com/stripe/stripe-go/v74/paymentintent"
 )
@@ -37,14 +39,14 @@ func (c *Card) CreatePayment(currency string, amount int) (*stripe.PaymentIntent
 
 	// create a payment intent
 	params := &stripe.PaymentIntentParams{
-		Amount:        stripe.Int64(int64(amount)),
-		Currency:      stripe.String(currency),
-		PaymentMethod: stripe.String("pm_card_visa"),
+		Amount:   stripe.Int64(int64(amount)),
+		Currency: stripe.String(currency),
 	}
 
 	// params.AddMetadata("Key", "Value")
 
 	pi, err := paymentintent.New(params)
+	log.Println(pi)
 	if err != nil {
 		msg := ""
 		// err.(T) : type assertion | return two values (nilai dasar (string), bool)
