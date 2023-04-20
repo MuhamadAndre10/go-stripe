@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/andrepriyanto10/go-stripe/internal/driver"
 	"github.com/joho/godotenv"
 )
 
@@ -64,6 +65,7 @@ func main() {
 
 	flag.IntVar(&cfg.port, "port", port, "Server port to listen on")
 	flag.StringVar(&cfg.env, "env", "development", "Application environment {development|production}")
+	flag.StringVar(&cfg.db.dsn, "dsn", "root:@tcp(localhost:3306)/widgets?parseTime=true&tls=false", "DSN")
 	flag.StringVar(&cfg.api, "api", "http://localhost:4001", "URL to api")
 
 	flag.Parse()
@@ -73,6 +75,13 @@ func main() {
 
 	infolog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime|log.Lshortfile)
+
+	conn, err := driver.OpenDB(cfg.db.dsn)
+	if err != nil {
+		errorLog.Fatal(err)
+	}
+
+	defer conn.Close()
 
 	tc := make(map[string]*template.Template)
 
@@ -84,7 +93,7 @@ func main() {
 		version:       version,
 	}
 
-	err := app.serve()
+	err = app.serve()
 	if err != nil {
 		app.errorLog.Println(err)
 		log.Fatal(err)
