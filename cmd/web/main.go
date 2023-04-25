@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/andrepriyanto10/go-stripe/internal/driver"
+	"github.com/andrepriyanto10/go-stripe/internal/models"
 	"github.com/joho/godotenv"
 )
 
@@ -36,6 +37,7 @@ type application struct {
 	errorLog      *log.Logger
 	templateCache map[string]*template.Template
 	version       string
+	DB            models.DBModel
 }
 
 func (app *application) serve() error {
@@ -76,6 +78,7 @@ func main() {
 	infolog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime|log.Lshortfile)
 
+	// Open connection.
 	conn, err := driver.OpenDB(cfg.db.dsn)
 	if err != nil {
 		errorLog.Fatal(err)
@@ -91,6 +94,7 @@ func main() {
 		errorLog:      errorLog,
 		templateCache: tc,
 		version:       version,
+		DB:            models.DBModel{DB: conn},
 	}
 
 	err = app.serve()

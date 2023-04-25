@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/andrepriyanto10/go-stripe/internal/driver"
+	"github.com/andrepriyanto10/go-stripe/internal/models"
 	"github.com/joho/godotenv"
 )
 
@@ -32,6 +33,7 @@ type application struct {
 	infoLog  *log.Logger
 	errorLog *log.Logger
 	version  string
+	DB       models.DBModel
 }
 
 func (app *application) serve() error {
@@ -83,6 +85,7 @@ func main() {
 		infoLog:  infolog,
 		errorLog: errorLog,
 		version:  version,
+		DB:       models.DBModel{DB: conn},
 	}
 
 	err = app.serve()
