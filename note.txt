@@ -1,0 +1,9 @@
+Apliksi replika dari kursus udemy
+Aplikasi ini merupakan aplilkasi pembayaran yang menggunakan stripe sebagai laynan pembayaran online
+
+==============================
+
+dokumentasi:
+    Stripe adalah platform pembayaran online yang memungkinkan bisnis untuk menerima pembayaran dari pelanggan secara online.
+--  Payment method dalam Stripe mengacu pada informasi pembayaran pelanggan,    seperti nomor kartu kredit atau informasi rekening bank, yang disimpan dalam sistem Stripe dan digunakan untuk memproses pembayaran di masa depan.
+--  payment intent dalam Stripe adalah representasi dari pembayaran yang sedang diproses. Payment intent terdiri dari informasi tentang pembayaran, seperti jumlah yang harus dibayar dan mata uang yang digunakan, serta informasi tentang payment method yang akan digunakan untuk memproses pembayaran.

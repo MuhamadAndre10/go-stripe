@@ -1,0 +1,12 @@
+create_table("transaction_statuses") {
+    t.Column("id", "integer", {primary: true})
+    t.Column("name", "string", {})
+    t.Column("created_at", "timestamp", { not_null: true, default: "1970-01-01 00:00:01" })
+    t.Column("updated_at", "timestamp", { not_null: true, default: "1970-01-01 00:00:01" })
+}
+
+sql("insert into transaction_statuses (name) values ('Pending');")
+sql("insert into transaction_statuses (name) values ('Cleared');")
+sql("insert into transaction_statuses (name) values ('Declined');")
+sql("insert into transaction_statuses (name) values ('Refunded');")
+sql("insert into transaction_statuses (name) values ('Partially refunded');")
