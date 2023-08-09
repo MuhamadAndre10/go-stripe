@@ -6,4 +6,4 @@ yang saya pelajari:
 - Migration database dengan golang
 - Menampilkan static file, dengan mengirimkan data
 
-**project ini merupakan latihan dari kursus udemy** 
+**project ini merupakan latihan dari kursus udemy dan digunakan hanya untuk pembelajaran | Copyright** 
